@@ -1,0 +1,47 @@
+<form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="prix">Prix</label>
+      <input type="number" id="prix" formControlName="prix" class="form-control" />
+      <div *ngIf="transactionForm.get('prix')?.invalid && transactionForm.get('prix')?.touched" class="text-danger">
+        Prix est requis et doit être supérieur ou égal à 0.
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="dateTransaction">Date de Transaction</label>
+      <input type="date" id="dateTransaction" formControlName="dateTransaction" class="form-control" />
+      <div *ngIf="transactionForm.get('dateTransaction')?.invalid && transactionForm.get('dateTransaction')?.touched" class="text-danger">
+        Date de transaction est requise.
+      </div>
+    </div>
+  
+    <div class="form-group">
+        <label for="document">Document</label>
+        <input type="file" id="document" formControlName="document" class="form-control" (change)="onFileChange($event)" />
+        <div *ngIf="transactionForm.get('document')?.invalid && transactionForm.get('document')?.touched" class="text-danger">
+          Document est requis.
+        </div>
+      </div>
+      
+  
+    <div class="form-group form-check">
+      <input type="checkbox" id="confidentialite" formControlName="confidentialite" class="form-check-input" />
+      <label for="confidentialite" class="form-check-label">Confidentialité</label>
+    </div>
+  
+    <div class="form-group form-check">
+      <input type="checkbox" id="validite" formControlName="validite" class="form-check-input" />
+      <label for="validite" class="form-check-label">Validité</label>
+    </div>
+  
+    <div class="form-group">
+      <label for="actionnaireId">ID Actionnaire</label>
+      <input type="number" id="actionnaireId" formControlName="actionnaireId" class="form-control" />
+      <div *ngIf="transactionForm.get('actionnaireId')?.invalid && transactionForm.get('actionnaireId')?.touched" class="text-danger">
+        ID Actionnaire est requis.
+      </div>
+    </div>
+  
+    <button type="submit" class="btn btn-primary" [disabled]="transactionForm.invalid">Soumettre</button>
+  </form>
+  

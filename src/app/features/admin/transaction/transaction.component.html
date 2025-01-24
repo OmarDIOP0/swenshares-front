@@ -1,0 +1,66 @@
+<div class="container-fluid px-4">
+  <h5 class="text-center my-1">Gestion des transactions</h5>
+
+
+  <!-- Champ de filtre -->
+  <div class="row mb-2">
+  <div class="row">
+    <div class="col-8">
+      <mat-form-field appearance="fill">
+        <mat-label>Rechercher</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Filtrer les transactions">
+        <mat-icon matSuffix>🔍</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+  <!-- Liste des transactions -->
+  <div class="row">
+    <div class="col-12">
+      <div class="table-responsive">
+        <h6 class="mb-3">Liste des transactions</h6>
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Type</th>
+              <th>Quantite</th>
+              <th>Prix</th>
+              <th>Actionnaire</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transaction of filteredTransactions.slice((p1 - 1) * pageSize, p1 * pageSize)">
+              <td>{{ transaction.id }}</td>
+              <td>{{ transaction.type }}</td>
+              <td>{{ transaction.quantite }}</td>
+              <td>{{ transaction.prix }} FCFA</td>
+              <td>{{ transaction.actionnaire }}</td>
+              <td>{{ transaction.date }}</td>
+              <td>{{ transaction.statut }}</td>
+            </tr>
+            <tr *ngIf="filteredTransactions.length === 0">
+              <td colspan="7" class="text-center">Aucune transaction trouvée.</td>
+            </tr>
+          </tbody>
+        </table>
+        <mat-paginator [length]="filteredTransactions.length" [pageSize]="pageSize" [pageSizeOptions]="[5,10,25]" (page)="pageEvent=$event;p1=pageEvent.pageIndex+1"></mat-paginator>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section des graphiques -->
+  <div class="row mt-5">
+    <div class="col-12 col-md-10 mx-auto">
+      <canvas baseChart
+          [datasets]="priceChartData"
+          [labels]="priceChartLabels"
+          [options]="chartOptions"
+          [legend]="priceChartLegend"
+          [type]="priceChartType">
+      </canvas>
+      <h6 class="text-center mt-3">Volume des transactions</h6>
+    </div>
+  </div>
+</div>

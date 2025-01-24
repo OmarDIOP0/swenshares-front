@@ -1,0 +1,24 @@
+.container {
+  max-width: 1000px;
+}
+
+h5 {
+  font-weight: bold;
+}
+
+.btn-app {
+  background-color: #70D6FF;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+p {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+strong {
+  color: #70D6FF;
+}

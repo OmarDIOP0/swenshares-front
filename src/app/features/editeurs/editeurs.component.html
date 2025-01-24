@@ -1,0 +1,60 @@
+<!-- editeurs.component.html -->
+<div class="grid-container">
+  <!-- Section entreprise -->
+  <div class="grid-container">
+    <div class="header">
+      <div class="stat-box">
+      <p class="info-field">Raison sociale : {{ entreprise.raisonSociale }}</p>
+      <p class="info-field">Forme : {{ entreprise.forme }}</p>
+      </div>
+      <div class="stat-box">
+      <p class="info-field">Pays du siège : {{ entreprise.paysSiege }}</p>
+      </div>
+      <div class="stat-box">
+      <p class="info-field">Monnaie de base : {{ entreprise.monnaieBase }}</p>
+      </div>
+    </div>
+    <!-- Section des statistiques -->
+    <div class="stats-container">
+      <div class="stat-box">
+        <p class="label">Nbre actionnaires</p>
+        <p class="stat-value">{{ entreprise.nbreActionnaires }}</p>
+      </div>
+      <div class="stat-box">
+        <p class="label">Nbre Parts sociales</p>
+        <p class="stat-value">{{ entreprise.nbrePartsSociales }}</p>
+      </div>
+      <div class="stat-box">
+        <p class="label">Capital Social</p>
+        <p class="stat-value">{{ entreprise.capitalSocial }}</p>
+      </div>
+    </div>
+    <!-- Section des liens -->
+   <!-- <div class="links-container">
+      <div class="link-box">
+        <p>Top 10 des actionnaires (par nbre parts sociales)</p>
+        <a *ngFor="let ligne of lignesTop10; let i = index" 
+           [routerLink]="['/admin/actionnaire/view-detail', getActionnaireId(actionnaires[i])]">
+          {{ ligne }}
+        </a>
+      </div>
+      
+      <div class="link-box">
+        <p>10 dernières transactions (par date)</p>
+        <a *ngFor="let ligne of lignesTransactions; let i = index" 
+           [routerLink]="['/actionnaire-details', getActionnaireId(actionnaires[i])]">
+          {{ ligne }}
+        </a>
+      </div>
+      <div class="link-box">
+        <p>10 derniers événements vie sociale</p>
+        <a *ngFor="let ligne of lignesEvenements; let i = index" 
+           [routerLink]="['/actionnaire-details', getActionnaireId(actionnaires[i])]">
+          {{ ligne }}
+        </a>
+      </div>
+    </div>    
+    
+  </div> -->
+
+</div>

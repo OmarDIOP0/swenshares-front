@@ -1,0 +1,152 @@
+# stages:
+#   - test
+#   - build
+#   - deploy
+
+# # Étape de tests unitaires pour Angular
+# test-frontend:
+#   stage: test
+#   image: node:20
+#   script:
+#     - echo "Installing Angular CLI and project dependencies..."
+#     - npm install -g @angular/cli
+#     - npm install  # Installer les dépendances du projet
+#     - echo "Installing Chrome..."
+#     - apt-get update && apt-get install -y wget gnupg
+#     - wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
+#     - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+#     - apt-get update
+#     - apt-get install -y google-chrome-stable
+#     - echo "Running Angular unit tests..."
+#     - export CHROME_BIN=/usr/bin/google-chrome
+#     - which google-chrome  # Vérifiez si Chrome est accessible
+#     # - ng test --watch=false --browsers=ChromeHeadless --no-sandbox --disable-gpu
+
+#   only:
+#     - main
+
+# # Étape de build du frontend (Angular)
+# build-frontend:
+#   stage: build
+#   image: node:20
+#   script:
+#     - echo "Installing Angular CLI and dependencies..."
+#     - npm install -g @angular/cli
+#     - npm install
+#     - echo "Building the Angular project..."
+#     - ng build --configuration production
+#   cache:
+#     key: ${CI_COMMIT_REF_SLUG}
+#     paths:
+#       - node_modules/
+#   artifacts:
+#     paths:
+#       - dist/
+#   only:
+#     - main
+
+
+# # Déploiement du frontend Angular sur Render ou autre
+# deploy-frontend:
+#   stage: deploy
+#   image: node:20
+#   script:
+#     - echo "Deploying Angular frontend to Render..."
+#     # Ajouter vos commandes spécifiques de déploiement ici
+#     - curl -X POST https://swensharesfront.onrender.com/
+#  # Remplacez par votre URL de déploiement
+#   environment: production
+#   only:
+#     - main
+#   when: manual
+
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+
+
+test-frontend:
+  stage: test
+  image: node:20
+  script:
+    - echo "Installing Angular CLI and project dependencies..."
+    - npm install -g @angular/cli
+    - npm install  # Installer les dépendances du projet
+    - echo "Installing Chrome..."
+    - apt-get update && apt-get install -y wget gnupg
+    - wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
+    - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+    - apt-get update
+    - apt-get install -y google-chrome-stable
+    - echo "Running Angular unit tests..."
+    - export CHROME_BIN=/usr/bin/google-chrome
+    - which google-chrome  # Vérifiez si Chrome est accessible
+    # - ng test --watch=false --browsers=ChromeHeadless --no-sandbox --disable-gpu
+    - echo "Running Angular unit tests..."
+    - npm run test
+  rules:
+    - if: $CI_COMMIT_BRANCH == "dev" || $CI_COMMIT_BRANCH == "main"
+  # only:
+    # - main
+   #   - dev
+
+
+
+frontend-build:
+  stage: build
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    # Tagger aussi latest pour dev
+    - if [ "$CI_COMMIT_BRANCH" = "dev" ]; then
+        docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:latest;
+        docker push $CI_REGISTRY_IMAGE:latest;
+      fi
+  rules:
+    - if: $CI_COMMIT_BRANCH == "dev" || $CI_COMMIT_BRANCH == "main"
+
+
+
+# build-frontend:
+#   stage: build
+#   image: node:20
+#   script:
+#     - echo "Installing Angular CLI and dependencies..."
+#     - npm install -g @angular/cli
+#     - npm install
+#     - echo "Building the Angular project..."
+#     - ng build --configuration production
+#     - docker build -t registry.gitlab.com/digital-performance/swensharesfront:latest -f ./Dockerfile .
+#     - docker push registry.gitlab.com/digital-performance/swensharesfront:latest
+#   cache:
+#     key: ${CI_COMMIT_REF_SLUG}
+#     paths:
+#       - node_modules/
+#   artifacts:
+#     paths:
+#       - dist/
+#   only:
+#     # - main
+#     - dev
+
+deploy-frontend:
+  stage: deploy
+  image: node:20
+  script:
+    - echo "Deploying Angular frontend to Render..."
+    # Ajouter vos commandes spécifiques de déploiement ici
+    - curl -X POST https://api.render.com/deploy/srv-abcdefg123
+  environment: production
+  only:
+    - main
+  when: manual
+
+
+
+

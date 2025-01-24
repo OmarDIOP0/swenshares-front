@@ -1,0 +1,394 @@
+<div class="form-container card shadow p-4">
+<div class="">
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#socialActModal">
+    Créer un Acte Social
+  </button>
+  <!-- Modal -->
+  <div class="modal fade" id="socialActModal" tabindex="-1" aria-labelledby="socialActModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="socialActModalLabel">Créer un Acte Social</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="socialActForm" (ngSubmit)="onSubmiSocialAct()" enctype="multipart/form-data">
+            <div class="row">
+              <div class="col">
+                <div class="mb-3">
+                  <label for="issuing_company_id" class="form-label">Société Émettrice</label>
+                  <select id="issuing_company_id" formControlName="issuing_company_id" class="form-select">
+                    <option value="" disabled selected>Choisissez une société</option>
+                    <option *ngFor="let societe of societes" [value]="societe.id">
+                      {{ societe.name }}
+                    </option>
+                  </select>
+                  <div *ngIf="socialActForm.get('issuing_company_id')?.invalid && socialActForm.get('issuing_company_id')?.touched" class="text-danger">
+                    La societe emettrice est requise.
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="mb-3">
+                  <label for="date" class="form-label">Date</label>
+                  <input type="date" id="date" formControlName="date" class="form-control" />
+                  <div *ngIf="socialActForm.get('date')?.invalid && socialActForm.get('date')?.touched" class="text-danger">
+                     La date est requise.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="mb-3">
+                  <label for="general_assembly_pv" class="form-label">PV de l'Assemblée Générale</label>
+                  <input type="file" id="general_assembly_pv" class="form-control"
+                         (change)="onFileSelectedActSocial($event, 'general_assembly_pv')"
+                         required />
+                  <div *ngIf="socialActForm.get('general_assembly_pv')?.invalid && socialActForm.get('general_assembly_pv')?.touched"
+                       class="text-danger">
+                    Le PV est requis
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="mb-3">
+                  <label for="general_assembly_type" class="form-label">Type d'Assemblée Générale</label>
+                  <select id="general_assembly_type" formControlName="general_assembly_type" class="form-select">
+                    <option value="ORDINARY">Ordinaire</option>
+                    <option value="EXTRAORDINARY">Extraordinaire</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="social_act_type" class="form-label">Type Acte Social</label>
+              <select id="social_act_type" formControlName="social_act_type" class="form-select">
+                <option value="STORE_INCORPORATION">STORE_INCORPORATION</option>
+                <option value="RESOURCE_EXTERN">RESOURCE_EXTERN</option>
+              </select>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="older_capital">Ancien capital</label>
+                    <input type="text" id="older_capital" formControlName="older_capital" class="form-control" placeholder="Entrez le capital ancien" />
+                    <div *ngIf="societeForm.get('older_capital')?.invalid && societeForm.get('older_capital')?.touched" class="text-danger">
+                      <div *ngIf="societeForm.get('older_capital')?.errors?.['required']">Ancien capital est requis.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="new_capital">Nouveau capital</label>
+                    <input type="text" id="new_capital" formControlName="new_capital" class="form-control" placeholder="Entrez le capital ancien" />
+                    <div *ngIf="societeForm.get('new_capital')?.invalid && societeForm.get('new_capital')?.touched" class="text-danger">
+                      <div *ngIf="societeForm.get('new_capital')?.errors?.['required']">Ancien capital est requis.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="notes" class="form-label">Notes</label>
+              <textarea id="notes" formControlName="notes" class="form-control"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success" [disabled]="isLoading">
+              <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              <span *ngIf="!isLoading">Enregistrer</span>
+              <span *ngIf="isLoading">En cours...</span>
+            </button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <h5 class="text-center mb-4">Ajouter une Société Émettrice</h5>
+  <form [formGroup]="societeForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <!-- Nom -->
+     <div class="row mb-3">
+      <div class="col">
+        <div class="form-group">
+          <label for="nom">Nom de la Société</label>
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            class="form-control"
+            placeholder="Entrez le nom de la société"
+          />
+          <div *ngIf="societeForm.get('nom')?.invalid && societeForm.get('nom')?.touched" class="text-danger">
+            Nom de la société est requis.
+          </div>
+      </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="ninea">NINEA</label>
+            <input
+              type="text"
+              id="ninea"
+              formControlName="ninea"
+              class="form-control"
+              placeholder="Entrez le NINEA"
+            />
+            <div *ngIf="societeForm.get('ninea')?.invalid && societeForm.get('ninea')?.touched" class="text-danger">
+              <div *ngIf="societeForm.get('ninea')?.errors?.['required']">NINEA est requis.</div>
+              <div *ngIf="societeForm.get('ninea')?.errors?.['pattern']">Le NINEA doit contenir uniquement des chiffres.</div>
+              <div *ngIf="societeForm.get('ninea')?.errors?.['minlength'] || societeForm.get('ninea')?.errors?.['maxlength']">
+                Le NINEA doit contenir entre 9 et 12 chiffres.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          class="form-control"
+          rows="2"
+          placeholder="Entrez une description"
+        ></textarea>
+      </div>
+
+    <div class="row mb-3 mt-3">
+      <div class="col">
+        <div class="form-group">
+          <label for="legal">Statut Juridique</label>
+          <input
+            type="text"
+            id="legal"
+            formControlName="legal"
+            class="form-control"
+            placeholder="Entrez le statut juridique"
+          />
+          <div *ngIf="societeForm.get('legal')?.invalid && societeForm.get('legal')?.touched" class="text-danger">
+            Statut juridique est requis.
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="logo">Logo de la Société</label>
+          <input type="file" id="logo" formControlName="logo" class="form-control" (change)="onFileSelected($event, 'logo')"/>
+          <small class="form-text text-muted">Téléchargez le logo (formats valides : PNG, JPEG).</small>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="founded_date">Date de Fondation</label>
+          <input
+            type="date"
+            id="founded_date"
+            formControlName="founded_date"
+            class="form-control"
+          />
+          <div *ngIf="societeForm.get('founded_date')?.invalid && societeForm.get('founded_date')?.touched" class="text-danger">
+            Date de fondation est requise.
+          </div>
+        </div>
+      </div>
+     </div>
+
+    <div class="form-group">
+      <button type="button" class="btn btn-secondary" (click)="toggleAddressForm()">
+        Ajouter une Adresse
+      </button>
+      <div *ngIf="headOfficeAddresses.length === 0" class="text-danger">
+        Veuillez ajouter au moins une adresse.
+      </div>
+    </div>
+      <!-- Formulaire Adresse -->
+    <div *ngIf="showAddressForm" class="border p-3 mt-3" formArrayName="head_office_address">
+      <h6>Adresse</h6>
+      <div
+      *ngFor="let address of headOfficeAddresses.controls; let i = index"
+      [formGroupName]="i"
+      class="border p-3 mb-3"
+    >
+      <div class="row mb-3">
+        <div class="col">
+          <div class="form-group">
+            <label for="street-{{ i }}">Rue</label>
+            <input
+              type="text"
+              id="street-{{ i }}"
+              formControlName="street"
+              class="form-control"
+              placeholder="Entrez le nom de la rue"
+            />
+            <div *ngIf="address.get('street')?.invalid && address.get('street')?.touched" class="text-danger">
+              La rue est requise (minimum 2 caractères).
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="city-{{ i }}">Ville</label>
+            <input
+              type="text"
+              id="city-{{ i }}"
+              formControlName="city"
+              class="form-control"
+              placeholder="Entrez la ville"
+            />
+            <div *ngIf="address.get('city')?.invalid && address.get('city')?.touched" class="text-danger">
+              La ville est requise (minimum 2 caractères).
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="postal_code-{{ i }}">Code Postal</label>
+            <input
+              type="text"
+              id="postal_code-{{ i }}"
+              formControlName="postal_code"
+              class="form-control"
+              placeholder="Entrez le code postal"
+            />
+            <div *ngIf="address.get('postal_code')?.invalid && address.get('postal_code')?.touched" class="text-danger">
+              <div *ngIf="address.get('postal_code')?.errors?.['required']">Code postal requis.</div>
+              <div *ngIf="address.get('postal_code')?.errors?.['pattern']">Code postal invalide (5 chiffres).</div>
+            </div>
+
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="country-{{ i }}" class="form-label">Pays</label>
+            <select name="" id="country-{{ i }}"
+            formControlName="country"
+            class="form-select">
+              <option *ngFor="let country of countries" [value]="country">{{country}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <button *ngIf="i > 0" type="button" class="btn btn-danger" (click)="removeAddress(i)">
+        Supprimer cette adresse
+      </button>
+      </div>
+
+    </div>
+    <!-- Monnaie -->
+
+    <div class="row mb-3">
+      <div class="col">
+        <div class="form-group">
+          <label for="status_document">Document de Statut</label>
+          <input type="file" id="status_document" formControlName="status_document" class="form-control" (change)="onFileSelected($event, 'status_document')"/>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="internal_regulations_document">Règlement Intérieur</label>
+          <input type="file" id="internal_regulations_document" formControlName="internal_regulations_document" class="form-control" (change)="onFileSelected($event, 'internal_regulations_document')"/>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="registration_trade_register">Registre de Commerce</label>
+          <input type="file" id="registration_trade_register" formControlName="registration_trade_register" class="form-control" (change)="onFileSelected($event, 'registration_trade_register')"/>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <div class="form-group">
+          <label for="currency">Monnaie</label>
+          <select id="currency" formControlName="currency" class="form-control">
+            <option value="FCFA">FCFA</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+          </select>
+        </div>
+      </div>
+      <div class="col">
+            <!-- Statut -->
+    <div class="form-group">
+      <label for="status">Statut</label>
+      <select id="status" formControlName="status" class="form-control">
+        <option value="SUBMITTED">SUBMITTED</option>
+      </select>
+    </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="organization_chart">Organigramme</label>
+          <input type="file" id="organization_chart" formControlName="organization_chart" class="form-control" (change)="onFileSelected($event, 'organization_chart')"/>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <div class="form-group">
+          <label for="capital_social">Capital Social</label>
+          <input
+            type="number"
+            id="capital_social"
+            formControlName="capital_social"
+            class="form-control"
+            placeholder="Entrez le capital social"
+          />
+          <div *ngIf="societeForm.get('capital_social')?.invalid && societeForm.get('capital_social')?.touched" class="text-danger">
+            Capital social valide requis.
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="number_of_shares">Nombre de Parts Sociales</label>
+          <input
+            type="number"
+            id="number_of_shares"
+            formControlName="number_of_shares"
+            class="form-control"
+            placeholder="Entrez le nombre de parts sociales"
+          />
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="value_of_shares">Valeur des Parts Sociales</label>
+          <input
+            type="number"
+            id="value_of_shares"
+            formControlName="value_of_shares"
+            class="form-control"
+            placeholder="Entrez la valeur des parts sociales"
+          />
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Notes -->
+    <div class="form-group">
+      <label for="notes">Notes</label>
+      <textarea
+        id="notes"
+        formControlName="notes"
+        class="form-control"
+        rows="3"
+        placeholder="Ajoutez des notes (facultatif)"
+      ></textarea>
+    </div>
+
+    <!-- Bouton de Soumission -->
+    <button type="submit" class="btn btn-success" [disabled]="isLoading">
+      <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+      <span *ngIf="!isLoading">Ajout Societe</span>
+      <span *ngIf="isLoading">En cours...</span>
+    </button>
+
+  </form>
+</div>

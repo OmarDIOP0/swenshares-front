@@ -1,0 +1,143 @@
+/* Conteneur principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Titre */
+  h5.text-center {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  h6 {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+  }
+  
+  /* Formulaire de recherche */
+  .mat-form-field {
+    width: 100%;
+  }
+  
+  /* Table */
+  .table-responsive {
+    margin-top: 20px;
+  }
+  
+  table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+  }
+  
+  table thead {
+    background-color: #343a40;
+    color: white;
+  }
+  
+  table th, table td {
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  table td {
+    padding: 10px;
+  }
+  
+  /* Paginateur */
+  .mat-paginator {
+    margin-top: 20px;
+  }
+  
+  /* Notifications */
+  .alert-info {
+    margin-bottom: 20px;
+  }
+  
+  .alert-info ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .alert-info li {
+    margin-bottom: 10px;
+  }
+  
+  /* Modal */
+  .modal-header {
+    background-color: #343a40;
+    color: white;
+  }
+  
+  .modal-body {
+    font-size: 1rem;
+  }
+  
+  .modal-footer button {
+    min-width: 100px;
+  }
+  
+  /* Graphique */
+  .chart-container {
+    position: relative;
+    height: 400px;
+  }
+  
+  .chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+  /* Responsivité pour les différentes tailles d'écran */
+  @media (max-width: 768px) {
+    .container {
+      padding: 10px;
+    }
+  
+    h5.text-center {
+      font-size: 1.25rem;
+    }
+  
+    h6 {
+      font-size: 1rem;
+    }
+  
+    .col-8 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  
+    .col-md-6 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  
+    .table-responsive {
+      margin-top: 10px;
+    }
+  
+    .chart-container {
+      height: 300px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .container {
+      padding: 5px;
+    }
+  
+    h5.text-center {
+      font-size: 1rem;
+    }
+  
+    .table td, .table th {
+      font-size: 0.875rem;
+    }
+  
+    .modal-body {
+      font-size: 0.875rem;
+    }
+  }
+  

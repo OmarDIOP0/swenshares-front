@@ -1,0 +1,82 @@
+  .container {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  h2 {
+    color: #333;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+  }
+
+  .nav-tabs .nav-link.active {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  .pagination-controls {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  .nav-tabs .nav-link {
+    color: black;
+  }
+
+  .nav-tabs .nav-link.active {
+    background-color: #70D6FF;
+    color: black;
+  }
+
+  .nav-tabs .nav-link:hover {
+    background-color: #60C3E6;
+    color: white;
+  }
+  .table {
+    border-radius: 8px;
+  }
+
+  .table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .badge {
+    font-size: 0.9em;
+    padding: 0.5em;
+    width:90px;
+  }
+
+  .modal-header {
+    background-color: #343a40;
+    color: #fff;
+  }
+
+  .btn-outline-success, .btn-outline-danger {
+    transition: transform 0.2s ease;
+  }
+
+  .btn-outline-success:hover, .btn-outline-danger:hover {
+    transform: scale(1.05);
+  }
+
+  .modal-footer .btn {
+    min-width: 100px;
+  }
+
+  .custom-width {
+    width: 75%;
+  }
+
+
+
+  @media (max-width: 576px) {
+    .table-responsive {
+      overflow-x: auto;
+    }
+    table {
+      min-width: 200px;
+    }
+  }

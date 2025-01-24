@@ -1,0 +1,102 @@
+/* Conteneur principal */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Styles des titres */
+h5 {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Responsivité et espacement des champs */
+.row {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+.form-control,
+.form-select {
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Styles des onglets */
+.nav-tabs .nav-link {
+  color: #333;
+  font-weight: 500;
+}
+
+.nav-tabs .nav-link.active {
+  color: #007bff;
+  border-color: #007bff;
+  background-color: #f8f9fa;
+}
+
+/* Cases à cocher et réorganisation */
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-check-label {
+  font-weight: 500;
+}
+
+/* Gestion de la responsivité */
+@media (min-width: 768px) {
+  .row {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Affichage en deux colonnes pour les champs de saisie */
+  .row .col-md-6 {
+    flex: 1;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+
+  /* Réorganisation des cases à cocher pour les champs de compte et matricule */
+  #numeroCompteClient,
+  #matriculeEmploye {
+    margin-bottom: 0.5rem;
+  }
+
+  #isClient,
+  #isSalarie {
+    display: flex;
+    align-items: center;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Mise en page mobile */
+@media (max-width: 767px) {
+  .col-md-6 {
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  /* Centrer les boutons et autres éléments */
+  .btn-primary {
+    width: 100%;
+    font-size: 1rem;
+  }
+}

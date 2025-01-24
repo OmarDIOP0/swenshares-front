@@ -1,0 +1,147 @@
+<div class="container">
+  <h5 class="text-center">Gestion des transactions</h5>
+  <div class="row">
+    <div class="col-8">
+      <mat-form-field appearance="fill">
+        <mat-label>Rechercher</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Filtrer les transactions">
+        <mat-icon matSuffix>🔍</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+  <h6>Liste des Transactions</h6>
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered shadow-sm">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Type</th>
+          <th>Quantite</th>
+          <th>Prix</th>
+          <th>Actionnaire</th>
+          <th>Date</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of filterTransactions.slice((p1 - 1) * pageSize, p1 * pageSize)">
+          <td>{{ transaction.id }}</td>
+          <td>{{ transaction.type }}</td>
+          <td>{{ transaction.quantite }}</td>
+          <td>{{ transaction.prix }} FCFA</td>
+          <td>{{ transaction.actionnaire }}</td>
+          <td>{{ transaction.timestamp | date: 'short' }}</td>
+          <td>
+            <span class="badge"
+              [ngClass]="{
+                'bg-success': transaction.status === 'Approved',
+                'bg-danger': transaction.status === 'Rejected',
+                'bg-warning': transaction.status === 'Submitted'
+              }">
+              {{ transaction.status }}
+            </span>
+          </td>
+          <td>
+            <button *ngIf="transaction.status === 'Submitted'"
+                    (click)="openApprovedModal(transaction)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#approvedModal"
+                    class="btn btn-success btn-sm m-2">Approuver</button>
+            <button *ngIf="transaction.status === 'Submitted'"
+                    class="btn btn-outline-danger btn-sm"
+                    (click)="openRejectModal(transaction)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#rejectModal">Rejeter</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <mat-paginator [length]="filterTransactions.length" [pageSize]="pageSize" [pageSizeOptions]="[5,10,25]" (page)="pageEvent=$event;p1=pageEvent.pageIndex+1"></mat-paginator>
+  </div>
+    <!-- Notifications -->
+  <div *ngIf="notifications.length" class="alert alert-info mb-3">
+    <strong>Notifications :</strong>
+    <ul>
+      <li *ngFor="let notification of notifications">{{ notification }}</li>
+    </ul>
+  </div>
+<!---date-->
+ <div class="row mb-4 mt-5">
+  <div class="col-md-6">
+    <mat-form-field appearance="fill">
+      <mat-label>Date de début</mat-label>
+      <input matInput [matDatepicker]="startPicker" [(ngModel)]="startDate" (dateChange)="onDateChange()" />
+      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker #startPicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="col-md-6">
+    <mat-form-field appearance="fill">
+      <mat-label>Date de fin</mat-label>
+      <input matInput [matDatepicker]="endPicker" [(ngModel)]="endDate" (dateChange)="onDateChange()" />
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+</div>
+  <!-- Graphiques -->
+  <div class="row mb-5">
+    <div class="col-12 col-md-10 mb-3">
+      <div class="chart-container">
+        <canvas baseChart
+            [datasets]="statusChartData"
+            [labels]="statusChartLabels"
+            [options]="chartOptions"
+            [type]="statusChartType"
+          >
+        </canvas>
+        <p class="text-center mt-3">Répartition des transactions</p>
+    </div>
+    </div>
+  </div>
+
+    <!-- Modal de approved -->
+    <div class="modal fade" id="approvedModal" tabindex="-1" aria-labelledby="approvedModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="approvedModalLabel">Approuver la transaction</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" *ngIf="selectedTransaction">
+            <p>Êtes-vous sûr de vouloir approuver cette transaction ?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                    (click)="selectedTransaction ? approveTransaction(selectedTransaction) : null">Approuver</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Modal de Rejet -->
+        <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="rejectModalLabel">Rejeter la Transaction</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body" *ngIf="selectedTransaction">
+                <p>Êtes-vous sûr de vouloir rejeter cette transaction ?</p>
+                <div class="form-group">
+                  <label for="comment">Commentaire :</label>
+                  <textarea [(ngModel)]="selectedTransaction.comments" class="form-control" id="comment" rows="3"></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                        (click)="selectedTransaction ? rejectTransaction(selectedTransaction) : null">Rejeter</button>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>

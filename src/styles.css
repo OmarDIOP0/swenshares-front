@@ -1,0 +1,27 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+:root {
+  --bs-body-bg: #f4f7f6;
+  --bs-body-color: #000;
+  --bs-card-bg: white;
+  --bs-hover-bg: rgba(112, 214, 255, 0.2);
+  --bs-active-bg: #70D6FF;
+  --bs-active-color: white;
+  --bs-btn-bg: #70D6FF;
+  --bs-bg-color:#70D6FF;
+}
+
+.dark-mode {
+  --bs-body-bg: #1e1e1e;
+  --bs-body-color: white;
+  --bs-card-bg: white;
+  --bs-hover-bg: rgba(112, 214, 255, 0.2);
+  --bs-active-bg: #70D6FF;
+  --bs-active-color: white;
+  --bs-btn-bg: #3a9ad9;
+}

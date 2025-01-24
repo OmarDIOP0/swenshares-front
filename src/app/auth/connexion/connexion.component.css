@@ -1,0 +1,135 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f7f6;
+  margin: 0;
+  padding: 0;
+}
+
+.logo-container {
+  text-align: left; /* Alignement à gauche */
+  margin: 20px 0 20px 20px; /* Ajout d'un espace à gauche */
+}
+
+.logo-container img {
+  max-width: 150px;
+  display: block;
+  margin: 0; /* Supprimer le centrage automatique */
+}
+
+.form-container {
+  background-color: white;
+  width: 30%;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-container input {
+  width: 100%;
+  padding: 10px;
+  padding-right: 40px; /* espace pour l'icône */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.input-container i {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  background-color: #16A8C8;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background-color: #16A8C8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #2980b9;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+}
+
+.separator:not(:empty)::before {
+  margin-right: .25em;
+}
+
+.separator:not(:empty)::after {
+  margin-left: .25em;
+}
+
+.footer {
+  text-align: center;
+}
+
+.footer p {
+  margin-top: 20px;
+}
+
+.footer a {
+  color: #16A8C8;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Media Queries */
+@media (min-width: 600px) {
+  .form-container {
+    width: 70%;
+  }
+}
+
+@media (min-width: 768px) {
+  .form-container {
+    width: 50%;
+  }
+}
+
+@media (min-width: 992px) {
+  .form-container {
+    width: 30%;
+  }
+}

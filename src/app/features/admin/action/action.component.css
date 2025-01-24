@@ -1,0 +1,21 @@
+.container-fluid {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.table-responsive {
+  margin-top: 20px;
+}
+
+h6 {
+  color: #343a40;
+}
+
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+th{
+  background-color: #70D6FF;
+}

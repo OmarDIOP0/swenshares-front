@@ -1,0 +1,105 @@
+.boxed {
+  border: 2px solid #16A8C8;
+  padding: 10px;
+  display: inline-block;
+  font-size: 1.2em;
+  width: 100%; /* Assure que l'élément prend toute la largeur disponible */
+  box-sizing: border-box;
+}
+
+.auth-container {
+  max-width: 90%; /* Réduit la largeur pour petits écrans */
+}
+
+.auth-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.logo-container {
+  text-align: left; /* Alignement à gauche */
+  margin: 20px 0 20px 20px; /* Ajout d'un espace à gauche */
+}
+
+.logo-container img {
+  max-width: 150px;
+  display: block;
+  margin: 0; /* Supprimer le centrage automatique */
+}
+
+
+.form-group {
+  margin: 20px 0;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-actions button[type="button"] {
+  background-color: #f0f0f0;
+}
+
+.form-actions button[type="submit"] {
+  background-color: #16A8C8;
+  color: #fff;
+}
+
+/* Media Queries */
+
+/* Pour les écrans moyens (tablettes) */
+@media (min-width: 768px) {
+  .auth-container {
+    max-width: 700px; /* Ajuste la largeur pour les écrans moyens */
+  }
+
+  .form-actions button {
+    width: auto; /* Les boutons reviennent à leur taille normale */
+    margin-bottom: 0;
+  }
+}
+
+/* Pour les petits écrans (mobiles) */
+@media (max-width: 600px) {
+  .auth-container {
+    max-width: 95%; /* Réduit la largeur pour mieux s'adapter aux mobiles */
+  }
+
+  .form-actions {
+    flex-direction: column; /* Les boutons se superposent sur petits écrans */
+  }
+
+  .form-actions button {
+    width: 100%; /* Les boutons prennent toute la largeur disponible */
+    margin-bottom: 10px; /* Espacement entre les boutons */
+  }
+
+  .form-actions button:last-child {
+    margin-bottom: 0;
+  }
+}

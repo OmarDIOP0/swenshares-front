@@ -1,0 +1,36 @@
+<div class="container">
+  <!-- Filtrage en haut -->
+  <div class="filter-container">
+    <input (input)="applyFilter($event)" placeholder="Filtrer les données" class="filter-input">
+    <button (click)="exportToExcel()">Exporter en Excel</button>
+    <button (click)="exportToPDF()">Exporter en PDF</button>
+  </div>
+
+  <!-- Boucle sur toutes les tables -->
+  <div class="table-container" *ngFor="let table of tables">
+    <h6>{{ table.title }}</h6>
+    <table>
+      <thead>
+
+        <tr>
+          <th *ngFor="let header of table.headers">{{ header }}</th>
+          <th>Actions</th> <!-- Pour les boutons 'Voir' et 'Valider' -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of table.rows">
+          <td *ngFor="let cell of row">{{ cell }}</td>
+          <button mat-button (click)="goToUserPage(row)">Voir</button>
+          <td><button (click)="validate(row)">Valider</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination au bas de chaque tableau -->
+    <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons></mat-paginator>
+  </div>
+
+  <footer>
+    <app-footer></app-footer>
+  </footer>
+</div>

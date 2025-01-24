@@ -1,0 +1,186 @@
+<div class="container">
+  <div class="row mb-3">
+    <div class="col">
+      <h5 class="text-center mb-3">Statistiques Globales</h5>
+      <div class="d-flex flex-wrap justify-content-around">
+        <div class="col-md-3 col-sm-6 mb-3">
+          <div class="card shadow-sm me-3">
+            <div class="card-body text-center">
+              <p class="card-title">Total d'actions</p>
+              <p class="card-text h4">{{ stats.totalActions }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-3">
+          <div class="card shadow-sm me-3">
+            <div class="card-body text-center">
+              <p class="card-title">Valeur totale</p>
+              <p class="card-text h4">{{ stats.totalValue | currency }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-3">
+          <div class="card shadow-sm me-3">
+            <div class="card-body text-center">
+              <p class="card-title">
+                Actionnaires Physiques
+              </p>
+              <p class="card-text h4">{{ stats.actionnairePhysique }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-3">
+          <div class="card shadow-sm me-3">
+            <div class="card-body text-center">
+              <p class="card-title">
+                Actionnaires Moraux
+              </p>
+              <p class="card-text h4">{{ stats.actionnaireMoral }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-3">
+          <div class="card shadow-sm me-3">
+            <div class="card-body text-center">
+              <p class="card-title">Total Transactions</p>
+              <p class="card-text h4">{{ stats.transactions }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="my-2">
+    <h5 class="text-center mb-4">Recents Actionnaires</h5>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-striped align-middle shadow-sm" style="min-width: 500px;">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Métier</th>
+            <th scope="col">Pays</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td scope="row">1</td>
+            <td>Asse Badiane</td>
+            <td>Ingénieur</td>
+            <td>Senegal</td>
+            <td>
+              <button class="btn btn-sm btn-info me-1" title="voir">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="btn btn-sm btn-danger me-1" title="Modifier">
+                <i class="fas fa-pencil"></i>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td scope="row">2</td>
+            <td>Moussa Tamba</td>
+            <td>Ingenieur</td>
+            <td>Senegal</td>
+            <td>
+              <button class="btn btn-sm btn-info me-1" title="voir">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="btn btn-sm btn-danger me-1" title="Modifier">
+                <i class="fas fa-pencil"></i>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td scope="row">3</td>
+            <td>Omar DIOP</td>
+            <td>Ingénieur</td>
+            <td>Senegal</td>
+            <td>
+              <button class="btn btn-sm btn-info me-1" title="voir">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="btn btn-sm btn-danger me-1" title="Modifier">
+                <i class="fas fa-pencil"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mt-4">
+      <div class="row mb-3">
+        <div class="col">
+          <div class="row">
+            <div class="col-12 col-md-6 mb-3">
+              <canvas baseChart
+                      [datasets]="priceChartData"
+                      [labels]="priceChartLabels"
+                      [options]="chartOptions"
+                      [legend]="priceChartLegend"
+                      [type]="priceChartType">
+              </canvas>
+              <p class="text-center mt-3">Évolution du prix des actions</p>
+            </div>
+            <div class="col-12 col-md-6 mb-3">
+              <canvas baseChart
+                      [datasets]="volumeChartData"
+                      [labels]="volumeChartLabels"
+                      [options]="chartOptions"
+                      [legend]="volumeChartLegend"
+                      [type]="volumeChartType">
+              </canvas>
+              <p class="text-center mt-3">Volume des transactions</p>
+            </div>
+          </div>
+        </div>
+      </div>
+   </div>
+<div class="my-2">
+  <h5 class="text-center mb-4">Transactions Récentes</h5>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped align-middle shadow-sm">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Type</th>
+          <th scope="col">Quantité</th>
+          <th scope="col">Prix</th>
+          <th scope="col">Actionnaire</th>
+          <th scope="col">Date</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of recentTransactions">
+          <td>{{ transaction.id }}</td>
+          <td>{{ transaction.action }}</td>
+          <td>{{ transaction.quantity }}</td>
+          <td>{{ transaction.price | currency }}</td>
+          <td>{{ transaction.user }}</td>
+          <td>{{ transaction.date }}</td>
+          <td>
+            <button class="btn btn-sm btn-info me-1" title="voir">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button class="btn btn-sm btn-danger me-1" title="Modifier">
+              <i class="fas fa-pencil"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div>
+
+<footer>
+  <app-footer></app-footer>
+</footer>

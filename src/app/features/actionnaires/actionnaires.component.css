@@ -1,0 +1,84 @@
+/* Hero section */
+.hero-section {
+  /* background-image: url('/assets/logo.jpg'); */
+  background-size: cover;
+  background-position: center;
+  height: 70vh;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-section h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.hero-section .btn-primary {
+  background-color: #70D6FF;
+  border: none;
+  padding: 12px 30px;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+}
+
+.card-body {
+  text-align: center;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  color: #70D6FF;
+}
+
+footer {
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+.navbar-brand {
+  color: #70D6FF;
+  font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+  color: black;
+  font-size: 1rem;
+}
+
+.navbar-nav .nav-link.active {
+  color: #70D6FF;
+  font-weight: bold;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #70D6FF;
+}
+.img-fluid{
+    max-width: 100%;
+    height:auto;
+  }
+.navbar-brand img{
+    max-width: 150px;
+    width:100%;
+    height:auto;
+}
+.navbar-nav li{
+  padding-left: 25px;
+}
+.btn-app{
+  color: #70D6FF;
+}
+.user-profile{
+  height: auto;
+}
+

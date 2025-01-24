@@ -1,0 +1,12 @@
+.list-group-item.active {
+  background-color: #70D6FF;
+  color: white;
+  border-color: #70D6FF;
+}
+.list-group-item{
+  cursor:pointer;
+}
+
+.btn-danger {
+  margin-left: 10px;
+}

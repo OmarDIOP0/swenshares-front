@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="d-flex align-items-center mb-4">
+    <button class="btn btn-app me-3" routerLink="/admin/actionnaire">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+    <h5 class="mb-0">Détails de l'Actionnaire</h5>
+  </div>
+
+  <div class="card shadow-sm border-0">
+    <div class="card-body">
+      <div *ngIf="actionnaire">
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <p><strong>Nom :</strong> {{ actionnaire.nom }}</p>
+            <p><strong>Email :</strong> {{ actionnaire.email }}</p>
+            <p><strong>Téléphone :</strong> {{ actionnaire.telephone }}</p>
+            <p><strong>Adresse :</strong> {{ actionnaire.adresse.rue }}, {{ actionnaire.adresse.boitePostale }} {{ actionnaire.adresse.ville }}, {{ actionnaire.adresse.pays }}</p>
+            <p><strong>Pays :</strong> {{ actionnaire.pays }}</p>
+          </div>
+          <div class="col-md-6">
+            <p><strong>Nombre d'actions :</strong> {{ actionnaire.nombreActions }}</p>
+            <p><strong>Pourcentage du capital :</strong> {{ actionnaire.pourcentageCapital }}%</p>
+            <p><strong>Secteur d'activité :</strong> {{ actionnaire.secteurActivite }}</p>
+            <p><strong>Groupe :</strong> {{ actionnaire.groupe }}</p>
+            <p><strong>Appartenance au groupe bénéficiaire :</strong> {{ actionnaire.appartenanceGroupeBeneficiaire }}</p>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <p><strong>Transactions :</strong> {{ actionnaire.transactions.length }} transaction(s)</p>
+            <p><strong>Dividendes :</strong> {{ actionnaire.dividendes }}</p>
+          </div>
+          <div class="col-md-6">
+            <p><strong>Effectif :</strong> {{ actionnaire.effectif }}</p>
+            <p><strong>Personne à contacter :</strong> {{ actionnaire.personneContact.nom }} - {{ actionnaire.personneContact.telephone }}</p>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div *ngIf="actionnaire"  class="my-2">
+        <h6 class="mb-4">Transactions</h6>
+        <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+          <table class="table table-bordered table-hover table-striped align-middle shadow-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Type</th>
+                <th scope="col">Quantite</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Actionnaire</th>
+                <th scope="col">Date</th>
+                <th scope="col">Statut</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  *ngFor="let transaction of transactionUser.slice((p1 - 1) * pageSize , p1 * pageSize)">
+                <th scope="row">{{transaction.id}}</th>
+                <td>{{transaction.type}}</td>
+                <td>{{transaction.quantite}}</td>
+                <td>{{transaction.prix}}</td>
+                <td>{{transaction.actionnaire}}</td>
+                <td>{{transaction.date}}</td>
+                <td>{{transaction.statut}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <mat-paginator [length]="transactionUser.length" [pageSize]="pageSize" [pageSizeOptions]="[5,10,25]" (page)="pageEvent = $event; p1 = pageEvent.pageIndex + 1"></mat-paginator>
+        </div>
+      </div>
+      <!--Pas D'actionnaire-->
+      <div *ngIf="!actionnaire" class="alert alert-warning">
+        <p>Aucun actionnaire trouvé.</p>
+      </div>
+    </div>
+  </div>
+
+</div>

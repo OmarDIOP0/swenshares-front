@@ -1,0 +1,41 @@
+.table {
+  border-radius: 8px;
+}
+
+.table th, .table td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.badge {
+  font-size: 0.9em;
+  padding: 0.5em;
+  width:90px;
+}
+
+.modal-header {
+  background-color: #343a40;
+  color: #fff;
+}
+
+.btn-outline-success, .btn-outline-danger {
+  transition: transform 0.2s ease;
+}
+
+.btn-outline-success:hover, .btn-outline-danger:hover {
+  transform: scale(1.05);
+}
+
+.modal-footer .btn {
+  min-width: 100px;
+}
+canvas {
+  max-width: 100%;
+}
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 350px;
+}
+
+

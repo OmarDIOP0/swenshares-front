@@ -1,0 +1,117 @@
+<div class="container">
+  <h5 class="text-center">Gestion des societes emettrices</h5>
+  <div class="row">
+    <div class="col-8">
+      <mat-form-field appearance="fill">
+        <mat-label>Rechercher</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Filtrer les transactions">
+        <mat-icon matSuffix>🔍</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+  <h6>Liste des societes emettrices</h6>
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered shadow-sm">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Forme</th>
+          <th>Ninea</th>
+          <th>rccm</th>
+          <th>Date</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let societe of societes.slice((p1 - 1) * pageSize, p1 * pageSize)">
+          <td>{{ societe.id }}</td>
+          <td>{{ societe.nom }}</td>
+          <td>{{ societe.forme }}</td>
+          <td>{{ societe.ninea }}</td>
+          <td>{{ societe.rccm }} FCFA</td>
+          <td>{{ societe.timestamp | date: 'short' }}</td>
+          <td>
+            <span class="badge"
+              [ngClass]="{
+                'bg-success': societe.status === 'Approved',
+                'bg-danger': societe.status === 'Rejected',
+                'bg-warning': societe.status === 'Submitted'
+              }">
+              {{ societe.status }}
+            </span>
+          </td>
+          <td>
+            <button *ngIf="societe.status === 'Submitted'"
+                    (click)="openApprovedModal(societe)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#approvedModal"
+                    class="btn btn-success btn-sm m-2">Approuver</button>
+            <button *ngIf="societe.status === 'Submitted'"
+                    class="btn btn-outline-danger btn-sm"
+                    (click)="openRejectModal(societe)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#rejectModal">Rejeter
+            </button>
+            <button *ngIf="societe.status === 'Approved'"  class="btn btn-sm btn-info me-1" matTooltip="Voir" [routerLink]="['/approbateur/societe-emettrice/view-detail', societe.id]">
+              <i class="fas fa-eye"></i>Voir
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <mat-paginator [length]="societes.length" [pageSize]="pageSize" [pageSizeOptions]="[5,10,25]" (page)="pageEvent=$event;p1=pageEvent.pageIndex+1"></mat-paginator>
+  </div>
+    <!-- Notifications -->
+  <div *ngIf="notifications.length" class="alert alert-info mb-3">
+    <strong>Notifications :</strong>
+    <ul>
+      <li *ngFor="let notification of notifications">{{ notification }}</li>
+    </ul>
+  </div>
+
+    <!-- Modal de approved -->
+    <div class="modal fade" id="approvedModal" tabindex="-1" aria-labelledby="approvedModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="approvedModalLabel">Approuver la Societe</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" *ngIf="selectedSociete">
+            <p>Êtes-vous sûr de vouloir approuver cette societe ?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                    (click)="selectedSociete ? approveTransaction(selectedSociete) : null">Approuver</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Modal de Rejet -->
+        <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="rejectModalLabel">Rejeter la Societe</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body" *ngIf="selectedSociete">
+                <p>Êtes-vous sûr de vouloir rejeter cette Societe ?</p>
+                <div class="form-group">
+                  <label for="comment">Commentaire :</label>
+                  <textarea [(ngModel)]="selectedSociete.comments" class="form-control" id="comment" rows="3"></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                        (click)="selectedSociete ? rejectTransaction(selectedSociete) : null">Rejeter</button>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>

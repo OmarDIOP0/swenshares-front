@@ -1,0 +1,137 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f7f6;
+  margin: 0;
+  padding: 0;
+}
+
+.logo-container {
+  text-align: left;
+  margin: 20px 0 20px 20px;
+}
+
+.logo-container img {
+  max-width: 10%;
+  height: auto;
+}
+
+.form-container {
+  background-color: white;
+  width: 90%; /* Réduction de la largeur pour les petits écrans */
+  max-width: 600px; /* Limite la taille pour les grands écrans */
+  width: 50%;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap; /* Les éléments se placent sur une nouvelle ligne si nécessaire */
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.form-group:last-child {
+  margin-right: 0;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-container input,
+.input-container select {
+  width: 100%;
+  padding: 10px;
+  padding-right: 40px;
+  padding-right: 40px; /* espace pour l'icône */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.input-container i {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  background-color: #16A8C8;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.form-group {
+  text-align: center; /* Centrer le contenu, y compris le bouton */
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.form-row .form-group:last-child button[type="submit"] {
+  width: auto;
+  flex: 1;
+  margin-left: 10px;
+}
+
+button[type="submit"]:hover {
+  background-color: #2980b9;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+}
+
+.separator:not(:empty)::before {
+  margin-right: .25em;
+}
+
+.separator:not(:empty)::after {
+  margin-left: .25em;
+}
+
+a {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  color: #3498db;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,122 @@
+<div class="row flex-nowrap g-0">
+  <div class="col-auto sidebar" [ngClass]="{'sidebar-expanded': isSidebarOpen, 'sidebar-collapsed': !isSidebarOpen}">
+      <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+
+        <div class="d-flex justify-content-center w-100 align-items-center">
+          <p class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-decoration-none text-uppercase">
+            <span class="fs-6 fs-md-6 menu-type" [ngClass]="{'d-none': !isSidebarOpen}">Menu</span>
+          </p>
+          <button class="btn btn mb-4 ms-auto btn-menu" (click)="toggleSidebar()">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+
+        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-sm-start" id="menu">
+
+          <!-- Dashboard -->
+          <li class="nav-item sidebar-menu-item mb-2" *ngIf="canShowMenu(['ADMIN'])">
+            <a class="nav-link align-middle" [routerLink]="['/admin/dashboard']" routerLinkActive="active">
+              <i class="fa-solid fa-rocket"></i>
+              <span class="ms-2 menu-item" [ngClass]="{'d-none': !isSidebarOpen}">Admin</span>
+            </a>
+          </li>
+
+          <!-- Éditeur -->
+          <li class="sidebar-menu-item mb-2" *ngIf="canShowMenu(['ADMIN', 'EDITOR'])">
+            <a class="nav-link align-middle" [routerLink]="['/editeurLayout/editeur']" routerLinkActive="active">
+              <i class="fa-solid fa-users"></i>
+              <span class="ms-2 menu-item" [ngClass]="{'d-none': !isSidebarOpen}">Éditeur</span>
+            </a>
+          </li>
+
+          <!-- Examineur -->
+          <li class="sidebar-menu-item mb-2" *ngIf="canShowMenu(['ADMIN', 'EXAMINER'])">
+            <a class="nav-link align-middle" [routerLink]="['/reviewerLayout/reviewer']" routerLinkActive="active">
+              <i class="fa-solid fa-users"></i>
+              <span class="ms-2 menu-item" [ngClass]="{'d-none': !isSidebarOpen}">Examineur</span>
+            </a>
+          </li>
+
+          <!-- Approver -->
+          <li class="sidebar-menu-item mb-2" *ngIf="canShowMenu(['ADMIN', 'APPROVER'])">
+            <a class="nav-link align-middle" [routerLink]="['/approbateur/dashboard']" routerLinkActive="active">
+              <i class="fa-solid fa-users"></i>
+              <span class="ms-2 menu-item" [ngClass]="{'d-none': !isSidebarOpen}">Approver</span>
+            </a>
+          </li>
+
+          <!-- Ajouter Actionnaire -->
+          <li class="sidebar-menu-item mb-2" *ngIf="canShowMenu(['EDITOR'])">
+            <a class="nav-link align-middle" [routerLink]="['/editeurLayout/add-actionnaire']" routerLinkActive="active">
+              <i class="fa-solid fa-user-plus"></i>
+              <span class="ms-2 menu-item" [ngClass]="{'d-none': !isSidebarOpen}">Ajouter Actionnaire</span>
+            </a>
+          </li>
+
+          <!-- Voir Actionnaires -->
+          <li class="sidebar-menu-item mb-2" *ngIf="canShowMenu(['ADMIN', 'EDITOR', 'EXAMINER', 'APPROVER'])">
+            <a class="nav-link align-middle" [routerLink]="['/view/actionnaires']" routerLinkActive="active">
+              <i class="fa-solid fa-user-group"></i>
+              <span class="ms-2 menu-item" [ngClass]="{'d-none': !isSidebarOpen}">Voir Actionnaires</span>
+            </a>
+          </li>
+
+          <!-- Ajouter Société -->
+          <li class="sidebar-menu-item mb-2" *ngIf="canShowMenu(['ADMIN', 'EDITOR'])">
+            <a class="nav-link align-middle" [routerLink]="['/editeurLayout/add-societeEmettrice']" routerLinkActive="active">
+              <i class="fa-solid fa-building"></i>
+              <span class="ms-2 menu-item" [ngClass]="{'d-none': !isSidebarOpen}">Ajouter Société</span>
+            </a>
+          </li>
+
+          <!-- Voir Societes -->
+          <li class="sidebar-menu-item mb-2" *ngIf="canShowMenu(['ADMIN', 'EDITOR', 'EXAMINER', 'APPROVER'])">
+            <a class="nav-link align-middle" [routerLink]="['/view/societe-emettrice']" routerLinkActive="active">
+              <i class="fa-solid fa-building"></i>
+              <span class="ms-2 menu-item" [ngClass]="{'d-none': !isSidebarOpen}">Voir Societes</span>
+            </a>
+          </li>
+
+          <!-- Ajouter Transaction -->
+        <li class="sidebar-menu-item mb-2" *ngIf="canShowMenu(['ADMIN', 'EDITOR'])">
+            <a class="nav-link align-middle" [routerLink]="['/editeurLayout/transactionForm']" routerLinkActive="active">
+              <i class="fa-solid fa-exchange-alt"></i>
+              <span class="ms-2 menu-item" [ngClass]="{'d-none': !isSidebarOpen}"> Ajouter Transaction</span>
+            </a>
+          </li>
+
+          <!-- Voir  Transaction -->
+          <li class="sidebar-menu-item mb-2" *ngIf="canShowMenu(['ADMIN', 'EDITOR', 'EXAMINER', 'APPROVER'])">
+            <a class="nav-link align-middle" [routerLink]="['/view/transactions']" routerLinkActive="active">
+              <i class="fa-solid fa-exchange-alt"></i>
+              <span class="ms-2 menu-item" [ngClass]="{'d-none': !isSidebarOpen}">Voir Transaction</span>
+            </a>
+          </li>
+
+
+          <!-- Utilisateurs -->
+          <li class="sidebar-menu-item mb-2" *ngIf="canShowMenu(['ADMIN'])">
+            <a class="nav-link align-middle" [routerLink]="['/admin/user-management']" routerLinkActive="active">
+              <i class="fa-solid fa-user"></i>
+              <span class="ms-2 menu-item" [ngClass]="{'d-none': !isSidebarOpen}">Utilisateurs</span>
+            </a>
+          </li>
+
+          <!-- Section API -->
+          <p class="d-flex mt-4 align-items-center pb-3 mb-md-0 me-md-auto text-primary text-decoration-none text-uppercase" *ngIf="canShowMenu(['ADMIN'])">
+            <span class="fs-6 fs-md-6 menu-type" [ngClass]="{'d-none': !isSidebarOpen}">API</span>
+          </p>
+          <li class="sidebar-menu-item mb-2" *ngIf="canShowMenu(['ADMIN'])">
+            <a class="nav-link align-middle">
+              <i class="fa-solid fa-user-cog"></i>
+              <span class="ms-2 menu-item" [ngClass]="{'d-none': !isSidebarOpen}">API</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <main class="col main" [ngStyle]="{'margin-left': isSidebarOpen ? '250px' : '80px'}">
+      <router-outlet></router-outlet>
+  </main>
+</div>

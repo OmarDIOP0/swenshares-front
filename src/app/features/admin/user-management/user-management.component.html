@@ -1,0 +1,46 @@
+<div class="container">
+  <h5 class="text-center">Gestion des permissions des utilisateurs</h5>
+
+  <!-- Liste des utilisateurs -->
+  <div class="row">
+    <div class="col-md-4">
+      <ul class="list-group">
+        <li *ngFor="let user of users" class="list-group-item d-flex justify-content-between align-items-center"
+            [class.active]="selectedUser?.id === user.id"
+            (click)="selectUser(user)">
+          {{ user.name }} ({{ user.role }})
+        </li>
+      </ul>
+    </div>
+
+    <!-- Formulaire de gestion des permissions -->
+    <div *ngIf="selectedUser" class="col-md-8">
+      <h5>Permissions pour {{ selectedUser.name }}</h5>
+
+      <form (ngSubmit)="savePermissions()">
+        <div class="mb-3">
+          <label for="userName" class="form-label">Nom</label>
+          <input type="text" id="userName" class="form-control" [(ngModel)]="selectedUser.name" name="name" readonly>
+        </div>
+
+        <div class="mb-3">
+          <label for="userEmail" class="form-label">Email</label>
+          <input type="email" id="userEmail" class="form-control" [(ngModel)]="selectedUser.email" name="email" readonly>
+        </div>
+
+        <div class="mb-3">
+          <label for="userRole" class="form-label">Rôle</label>
+          <input type="text" id="userRole" class="form-control" [(ngModel)]="selectedUser.role" name="role" readonly>
+        </div>
+
+        <h5>Permissions</h5>
+        <div class="form-check" *ngFor="let permission of ['CREATE_SHARE', 'UPDATE_SHARE', 'VIEW_SHARE', 'APPROVE_SHARE', 'EXAMINE_SHARE']">
+          <input class="form-check-input" type="checkbox" [id]="permission" (change)="updatePermissions(selectedUser, permission)" [checked]="selectedUser.permissions.includes(permission)">
+          <label class="form-check-label" [for]="permission">{{ permission }}</label>
+        </div>
+
+        <button type="submit" class="btn btn-success mt-3">Sauvegarder les permissions</button>
+      </form>
+    </div>
+  </div>
+</div>

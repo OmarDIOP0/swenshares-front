@@ -1,0 +1,60 @@
+body {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+.gradient-box {
+  height: 100px;
+  /* background: linear-gradient(135deg, #70D6FF 0%, #FF70A6 100%); */
+  background:
+    radial-gradient(circle at center, var(--bs-bg-color) 40%, transparent 100%),
+    linear-gradient(to left, #FF70A6, var(--bs-bg-color));
+  border-radius: 4px;
+}
+.title{
+  color: white;
+  font-size: 24px;
+}
+
+.card {
+  background-color: var(--bs-card-bg);
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
+
+img {
+  width: 120px;
+  height: 120px;
+}
+
+.list-group-item {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.list-group-item:hover {
+  background-color: var(--bs-hover-bg);
+  color: var(--bs-body-color);
+}
+
+.active-item {
+  background-color: var(--bs-active-bg);
+  color: var(--bs-active-color);
+}
+
+.btn-app {
+  background-color: var(--bs-btn-bg);
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.btn-app:hover {
+  background-color: #2980b9;
+}

@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: .  # Utilise le Dockerfile du répertoire frontend
+    container_name: my-frontend
+    ports:
+      - "4200:4200"  # Expose l'application Angular sur le port 4200
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - KEYCLOAK_URL=http://keycloak:8080  # Utilise l'URL interne Docker pour Keycloak
+    depends_on:
+      - keycloak  # Démarre Keycloak avant le frontend
+    networks:
+      - app-network
+    command: ["ng", "serve", "--host", "0.0.0.0", "--port", "4200"]
+
+networks:
+  app-network:
+    driver: bridge

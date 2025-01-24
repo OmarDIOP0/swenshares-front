@@ -1,0 +1,45 @@
+.link-list a {
+  position: relative;
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease;
+}
+.link-list a::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #70D6FF;
+  visibility: hidden;
+  transition: all 0.4s ease-in-out;
+}
+
+.link-list a:hover {
+  color: #70D6FF;
+}
+
+.link-list a:hover::before {
+  visibility: visible;
+  width: 100%;
+}
+.btn-app
+{
+  color:#70D6FF;
+}
+hr{
+  width: 60px;
+   background-color: #70D6FF;
+   height: 2px
+}
+.footer-last{
+  background-color: #70D6FF;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+.parent{
+  padding-top:50px;
+  margin-top:100px;
+}

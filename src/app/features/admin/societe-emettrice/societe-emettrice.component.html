@@ -1,0 +1,59 @@
+<div class="container-fluid px-4">
+  <h5 class="text-center my-1">Societes Emettrices</h5>
+  <!-- Champ de filtre -->
+  <div class="row mb-2">
+  <div class="row">
+    <div class="col-8">
+      <mat-form-field appearance="fill">
+        <mat-label>Rechercher</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Filtrer les Societes">
+        <mat-icon matSuffix>🔍</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+  <!-- Liste des transactions -->
+  <div class="row">
+    <div class="col-12">
+      <div class="table-responsive">
+        <h6 class="mb-3">Liste des societes</h6>
+        <table class="table table-striped table-hover text-center">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Nombre Actions</th>
+              <th>Valeur Actions</th>
+              <th>Status</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let societe of filteredSocieteEmettrice.slice((p1 - 1) * pageSize, p1 * pageSize)">
+              <td>{{ societe.id }}</td>
+              <td>{{ societe.name }}</td>
+              <td>{{ societe.founded_date }}</td>
+              <td>{{ societe.number_of_shares }}</td>
+              <td>{{ societe.value_of_shares }}</td>
+              <td [ngClass]="{
+                'bg-success': societe.status === 'APPROVED',
+                'bg-primary': societe.status === 'EXAMINED',
+                'bg-warning': societe.status === 'DRAFT',
+                'bg-danger': societe.status === 'REJECTED',
+                'bg-info': societe.status === 'SUBMITTED'
+              }">{{ societe.status }}</td>
+               <td><button class="btn btn-primary" [routerLink]="['/admin/societe-emettrice-details',societe.id]">Voir</button></td>
+              <!-- <td><a href="" routerLink="/societe-emettrice-details/{{societe.id}}">Voir</a></td> -->
+            </tr>
+            <tr *ngIf="filteredSocieteEmettrice.length === 0">
+              <td colspan="7" class="text-center">Aucune société trouvée.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <mat-paginator [length]="filteredSocieteEmettrice.length" [pageSize]="pageSize" [pageSizeOptions]="[5,10,25]" (page)="pageEvent=$event;p1=pageEvent.pageIndex+1"></mat-paginator>
+      </div>
+    </div>
+  </div>
+
+  </div>

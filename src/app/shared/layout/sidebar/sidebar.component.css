@@ -1,0 +1,97 @@
+:root{
+  --primary-color:#70D6FF;
+}
+.sidebar-expanded {
+  width: 250px;
+  transition: width 0.5s ease;
+}
+.sidebar{
+  position: fixed;
+  left: 0;
+  top: 80px;
+  height: 100vh;
+  /* padding-top: 20px; */
+  z-index: 1000;
+  background-color: white;
+  box-shadow: 1px 0 1px #70D6FF;
+  transition: width 0.3s ease;
+}
+.sidebar-collapsed {
+  width:80px;
+  transition: width 2s ease;
+  box-shadow: 2px 0 5px #70D6FF;
+}
+
+.sidebar-collapsed .nav-link span .fs-5 {
+  display: none;
+}
+
+.sidebar-collapsed .nav-link i {
+  display: inline;
+}
+.sidebar-menu-item a{
+  color:black;
+}
+.sidebar-menu-item a:hover{
+  background-color: rgba(112, 214, 255, 0.2);
+  border-left:5px solid rgba(112, 214, 255, 1);
+  width:190px;
+  border-radius:10px;
+  box-shadow: 0px 4px 8px #70D6FF;
+  transition: background-color 0.3s ease, border-top 0.3s ease;
+}
+.sidebar-collapsed .sidebar-menu-item a:hover {
+  background-color:rgba(112, 214, 255, 0.2);
+  border-left:5px solid rgba(112, 214, 255, 1);
+  width: auto;
+  box-shadow: 0px 2px 3px #70D6FF;
+  transition: background-color 0.3s ease, border-top 0.3s ease;
+}
+.main {
+  transition: margin-left 0.5s ease;
+  padding-top: 40px;
+  overflow-x:auto;
+  min-height:100vh;
+}
+.sidebar .btn {
+  transition: transform 0.3s ease, margin-left 0.3s ease;
+}
+.sidebar-collapsed .active{
+  background-color: rgba(112, 214, 255, 0.5);
+  border-left:5px solid rgba(112, 214, 255, 1);
+  width:50px;
+  border-radius:10px;
+  box-shadow: 0px 4px 8px #70D6FF;
+  transition: background-color 0.3s ease, border-top 0.3s ease;
+}
+.sidebar-expanded .active{
+  background-color: rgba(112, 214, 255, 0.5);
+  border-left:5px solid rgba(112, 214, 255, 1);
+  width:190px;
+  border-radius:10px;
+  box-shadow: 0px 4px 8px #70D6FF;
+  transition: background-color 0.3s ease, border-top 0.3s ease;
+}
+
+.menu-item{
+  font-size:15px;
+  font-weight:100;
+}
+.menu-item:hover{
+  font-weight:500;
+}
+
+.menu-type {
+  color: #70D6FF;
+  font-weight:bold;
+}
+.menu-icon{
+  font-size:17px;
+  font-weight:100;
+}
+.btn-app{
+  color: #70D6FF;
+}
+.btn-menu{
+ background-color: #70D6FF;
+}

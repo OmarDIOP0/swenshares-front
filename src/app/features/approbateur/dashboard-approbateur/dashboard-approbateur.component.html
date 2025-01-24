@@ -1,0 +1,112 @@
+<div class="container">
+  <h5 class="text-center mb-4">Statistique Globales</h5>
+  <div class="row mb-4">
+    <div class="col-6 col-sm-6 col-md-3 mb-3">
+      <div class="card text-white bg-success d-flex flex-column h-75 shadow-sm">
+        <div class="card-body">
+          <p class="card-title">Transactions Approuvées</p>
+          <p class="card-text">{{ getApprovedCount() }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-sm-6 col-md-3 mb-3">
+      <div class="card text-white bg-warning d-flex flex-column h-75">
+        <div class="card-body">
+          <p class="card-title">Transactions en Attente</p>
+          <p class="card-text">{{ getPendingCount() }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-sm-6 col-md-3 mb-3">
+      <div class="card text-white bg-danger d-flex flex-column h-75">
+        <div class="card-body">
+          <p class="card-title">Transactions Rejetées</p>
+          <p class="card-text">{{ getRejectedCount() }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-sm-6 col-md-3 mb-3">
+      <div class="card text-white bg-primary d-flex flex-column h-75">
+        <div class="card-body">
+          <p class="card-title">Total Sociétés</p>
+          <p class="card-text">10</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-sm-6 col-md-3 mb-3">
+      <div class="card text-white bg-info d-flex flex-column h-75">
+        <div class="card-body">
+          <p class="card-title">Total Actionnaires</p>
+          <p class="card-text">5</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Graphiques -->
+  <div class="row mb-4">
+    <div class="col-12 col-md-6 mb-3">
+      <div class="chart-container ">
+        <canvas baseChart
+          [datasets]="statusChartData"
+          [labels]="statusChartLabels"
+          [options]="chartOptions"
+          [type]="statusChartType"
+          >
+        </canvas>
+        <p class="text-center mt-3">Répartition des transactions</p>
+    </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <div class="chart-container ">
+        <canvas baseChart
+        [datasets]="typeChartData"
+        [labels]="typeChartLabels"
+        [options]="chartOptions"
+        [type]="typeChartType"
+          >
+        </canvas>
+        <p class="text-center mt-3">Évolution des types de transactions</p>
+    </div>
+    </div>
+  </div>
+
+
+  <h6 class="">Recentes Transactions</h6>
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered shadow-sm">
+          <thead class="table-dark">
+            <tr>
+              <th>#</th>
+              <th>Type</th>
+              <th>Quantite</th>
+              <th>Prix</th>
+              <th>Actionnaire</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transaction of transactions">
+              <td>{{ transaction.id }}</td>
+              <td>{{ transaction.type }}</td>
+              <td>{{ transaction.quantite }}</td>
+              <td>{{ transaction.prix }} FCFA</td>
+              <td>{{ transaction.actionnaire }}</td>
+              <td>{{ transaction.timestamp | date: 'short' }}</td>
+              <td><span class="badge" [ngClass]="{
+                'bg-success': transaction.status === 'Approved',
+                'bg-danger': transaction.status === 'Rejected',
+                'bg-warning': transaction.status === 'Submitted'
+              }">{{ transaction.status }}</span> </td>
+            </tr>
+            <tr *ngIf="transactions.length === 0">
+              <td colspan="7" class="text-center">Aucune transaction trouvée.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+</div>
+<footer>
+  <app-footer></app-footer>
+</footer>

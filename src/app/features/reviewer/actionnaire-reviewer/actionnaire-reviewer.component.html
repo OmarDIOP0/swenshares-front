@@ -1,0 +1,131 @@
+<div class="container">
+    <!-- Barre de recherche -->
+    <mat-form-field class="search-bar" appearance="outline">
+      <mat-label>Rechercher un actionnaire</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Nom, Email, etc.">
+    </mat-form-field>
+  
+    <!-- Table des actionnaires -->
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let actionnaire">{{ actionnaire.id }}</td>
+      </ng-container>
+  
+      <!-- Nom Column -->
+      <ng-container matColumnDef="nom">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
+        <td mat-cell *matCellDef="let actionnaire">{{ actionnaire.nom }}</td>
+      </ng-container>
+  
+      <!-- Type Column -->
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+        <td mat-cell *matCellDef="let actionnaire">{{ actionnaire.type }}</td>
+      </ng-container>
+  
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+        <td mat-cell *matCellDef="let actionnaire">{{ actionnaire.email }}</td>
+      </ng-container>
+  
+      <!-- Telephone Column -->
+      <ng-container matColumnDef="telephone">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Téléphone</th>
+        <td mat-cell *matCellDef="let actionnaire">{{ actionnaire.telephone }}</td>
+      </ng-container>
+  
+      <!-- Nombre d'Actions Column -->
+      <ng-container matColumnDef="nombreActions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+        <td mat-cell *matCellDef="let actionnaire">{{ actionnaire.nombreActions }}</td>
+      </ng-container>
+  
+      <!-- Pourcentage Capital Column -->
+      <ng-container matColumnDef="pourcentageCapital">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Capital (%)</th>
+        <td mat-cell *matCellDef="let actionnaire">{{ actionnaire.pourcentageCapital }}</td>
+      </ng-container>
+  
+      <!-- Dividendes Column -->
+      <ng-container matColumnDef="dividendes">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Dividendes</th>
+        <td mat-cell *matCellDef="let actionnaire">{{ actionnaire.dividendes | currency }}</td>
+      </ng-container>
+  
+      <!-- Pays Column -->
+      <ng-container matColumnDef="pays">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Pays</th>
+        <td mat-cell *matCellDef="let actionnaire">{{ actionnaire.pays }}</td>
+      </ng-container>
+  
+      <!-- Secteur Activité Column -->
+      <ng-container matColumnDef="secteurActivite">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Secteur</th>
+        <td mat-cell *matCellDef="let actionnaire">{{ actionnaire.secteurActivite }}</td>
+      </ng-container>
+  
+      <!-- Actions Column (Suppression) -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let actionnaire">
+          <button mat-button color="warn" (click)="removeActionnaire(actionnaire.id)">
+            Supprimer
+          </button>
+        </td>
+      </ng-container>
+  
+      <!-- Header Row -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <!-- Data Rows -->
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <!-- Pagination -->
+    <mat-paginator [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons (page)="handlePageEvent($event)">
+    </mat-paginator>
+  
+    <!-- Formulaire d'ajout d'actionnaire -->
+    <div class="add-actionnaire-form">
+      <h3>Ajouter un actionnaire</h3>
+      <form #actionnaireForm="ngForm" (ngSubmit)="addActionnaire(actionnaireForm.value)">
+        <mat-form-field appearance="fill">
+          <mat-label>Nom</mat-label>
+          <input matInput name="nom" ngModel required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput name="email" ngModel required type="email">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Téléphone</mat-label>
+          <input matInput name="telephone" ngModel required type="tel">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre d'actions</mat-label>
+          <input matInput name="nombreActions" ngModel required type="number">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Pourcentage de capital</mat-label>
+          <input matInput name="pourcentageCapital" ngModel required type="number">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Dividendes</mat-label>
+          <input matInput name="dividendes" ngModel required type="number">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Pays</mat-label>
+          <input matInput name="pays" ngModel required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Secteur d'activité</mat-label>
+          <input matInput name="secteurActivite" ngModel required>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Ajouter</button>
+      </form>
+    </div>
+  </div>
+  
