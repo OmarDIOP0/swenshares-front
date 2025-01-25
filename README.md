@@ -116,9 +116,6 @@ Nous accueillons avec plaisir les contributions ! Pour contribuer :
 4. Poussez vers la branche (`git push origin feature/NouvelleFeature`)
 5. Ouvrez une Pull Request
 
-## Licence
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
-
 ---
 
 Prêt à offrir une expérience utilisateur exceptionnelle pour la gestion des relations actionnaires avec SwenShares Frontend ! 🎨✨
